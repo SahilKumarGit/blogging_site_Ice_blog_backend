@@ -19,6 +19,16 @@ mongoose.connect(process.env.CLUSTER, { useNewUrlParser: true })
 
 
 app.use('/api/', route)
+
+
+app.use(express.static('./client'));
+
+app.get('/*', (req, res) =>
+    res.sendFile('index.html', { root: 'client/' })
+);
+
+
+
 app.all('/**', (req, res) => {
     bad(res, 404, false, '404 API NOT FOUND!')
 })
